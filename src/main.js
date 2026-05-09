@@ -1,4 +1,34 @@
 import './style.css'
+import { initMario } from './mario.js'
+
+const marioSpawn = document.querySelector('#mario-spawn')
+/** @type {null | (() => void)} */
+let stopMario = null
+
+function setMarioSpawnUi(active) {
+  if (!marioSpawn) return
+  if (active) {
+    marioSpawn.setAttribute('aria-label', 'Despawn Mario')
+    marioSpawn.setAttribute('title', 'Despawn Mario :(')
+  } else {
+    marioSpawn.setAttribute('aria-label', 'Secret: Spawn Mario!')
+    marioSpawn.setAttribute('title', 'Secret: Spawn Mario!')
+  }
+}
+
+if (marioSpawn) {
+  setMarioSpawnUi(false)
+  marioSpawn.addEventListener('click', () => {
+    if (stopMario) {
+      stopMario()
+      stopMario = null
+      setMarioSpawnUi(false)
+    } else {
+      stopMario = initMario()
+      setMarioSpawnUi(true)
+    }
+  })
+}
 
 const contactOpen = document.querySelector('#contact-open')
 const contactDialog = document.querySelector('#contact-dialog')

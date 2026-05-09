@@ -73,6 +73,72 @@ body::-webkit-scrollbar {
   z-index: 0;
 }
 
+/* Playable Mario: fixed to viewport, walks the bottom edge */
+.mario {
+  position: fixed;
+  z-index: 6;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+}
+
+.mario.mario--big {
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.42));
+}
+
+.mario__sprite {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  background-image: url('/mario-sprites.png');
+  background-repeat: no-repeat;
+  /* Strictly one atlas cell wide/tall so neighbors never bleed in */
+  overflow: hidden;
+  contain: strict;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  mix-blend-mode: screen;
+}
+
+.mario__sprite--left {
+  transform: translateX(-50%) scaleX(-1);
+}
+
+.mario-mushroom {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+  image-rendering: auto;
+  /* Black background in the PNG reads as transparent on this dark page (same idea as Mario) */
+  mix-blend-mode: screen;
+}
+
+@keyframes experience-range-bonk {
+  0% {
+    transform: translateY(0);
+  }
+  28% {
+    transform: translateY(-14px);
+  }
+  52% {
+    transform: translateY(5px);
+  }
+  76% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.experience-item__range--bonk {
+  animation: experience-range-bonk 0.62s cubic-bezier(0.33, 1.15, 0.55, 1) both;
+  will-change: transform;
+}
+
 .scroll-hint {
   position: fixed;
   left: 50%;
@@ -262,7 +328,12 @@ body::-webkit-scrollbar {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(210, 198, 179, 0.56);
+  color: rgba(216, 182, 128, 0.68);
+}
+
+/* After Mario bonks this date and the mushroom appears — drop the gold highlight */
+.experience-item__range--emptied {
+  color: rgba(210, 198, 179, 0.48);
 }
 
 .experience-item__content {
@@ -683,6 +754,21 @@ body::-webkit-scrollbar {
   border-radius: 2px;
 }
 
+.social-dock__icon-link:is(button) {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  appearance: none;
+}
+
+.social-dock__icon-link:is(button):disabled {
+  opacity: 0.62;
+  cursor: default;
+}
+
 .social-dock__icon {
   display: block;
   width: 100%;
@@ -697,10 +783,18 @@ body::-webkit-scrollbar {
   transform-origin: center;
 }
 
-/* Brittany-style Goodreads: 1024 viewBox; slightly larger than the prior 0.92 fit */
-.social-dock__icon--goodreads {
-  transform: scale(0.98);
-  transform-origin: center;
+/* Mario head art as mask — fills with currentColor like the SVG icons */
+.social-dock__icon--mario-face {
+  -webkit-mask-image: url('/mario-dock-icon.png');
+  mask-image: url('/mario-dock-icon.png');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  mask-type: alpha;
+  background-color: currentColor;
 }
 
 @media (max-width: 1280px), (max-aspect-ratio: 3 / 4) {
