@@ -151,6 +151,28 @@ function setActiveSection(sectionId) {
 }
 
 if (sections.length) {
+  const lastSection = sections[sections.length - 1]
+  const getActivationY = () => {
+    // Match the same landing offset used by anchor jumps on .page-section.
+    const first = sections[0]
+    const smt = Number.parseFloat(getComputedStyle(first).scrollMarginTop || '0')
+    return Number.isFinite(smt) ? smt + 2 : 0
+  }
+
+  const syncSectionFromScroll = () => {
+    const activationY = getActivationY()
+    let active = sections[0]
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= activationY) {
+        active = section
+      }
+    }
+    const scrollBottom = window.scrollY + window.innerHeight
+    const docBottom = document.documentElement.scrollHeight
+    if (scrollBottom >= docBottom - 4) active = lastSection
+    setActiveSection(active.id)
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       const visibleSections = entries
@@ -160,6 +182,7 @@ if (sections.length) {
       if (visibleSections.length) {
         setActiveSection(visibleSections[0].target.id)
       }
+      syncSectionFromScroll()
     },
     {
       root: null,
@@ -169,7 +192,11 @@ if (sections.length) {
   )
 
   sections.forEach((section) => observer.observe(section))
+  window.addEventListener('scroll', syncSectionFromScroll, { passive: true })
+  window.addEventListener('resize', syncSectionFromScroll)
+  window.addEventListener('hashchange', syncSectionFromScroll)
   setActiveSection(sections[0].id)
+  syncSectionFromScroll()
 }
 
 const canvas = document.querySelector('#tech-bg')
