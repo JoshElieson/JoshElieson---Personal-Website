@@ -79,7 +79,16 @@ function gatherSolids(marioRoot) {
   document.querySelectorAll('.intro, .section-nav').forEach((el) => {
     add(el.getBoundingClientRect(), el)
   })
-  document.querySelectorAll('#app .page-section:not(#experience)').forEach((el) => {
+  document.querySelectorAll('#app .page-section:not(#experience):not(#projects)').forEach((el) => {
+    if (el === marioRoot || el.contains?.(marioRoot)) return
+    add(el.getBoundingClientRect(), el)
+  })
+  /* #projects: per-block solids so Mario can walk on cards, the CTA row, and the footer note — not one tall hull (that trapped him horizontally). */
+  document.querySelectorAll('#projects .project-card').forEach((el) => {
+    if (el === marioRoot || el.contains?.(marioRoot)) return
+    add(el.getBoundingClientRect(), el)
+  })
+  document.querySelectorAll('#projects .project-cta, #projects .site-note').forEach((el) => {
     if (el === marioRoot || el.contains?.(marioRoot)) return
     add(el.getBoundingClientRect(), el)
   })
