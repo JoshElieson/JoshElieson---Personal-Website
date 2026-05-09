@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal site</title>
+  </head>
+  <body>
+    <canvas id="tech-bg" class="tech-bg" aria-hidden="true"></canvas>
+    <div id="scroll-hint" class="scroll-hint" aria-hidden="true">
+      <span class="scroll-hint__label">Scroll</span>
+      <span class="scroll-hint__arrow">↓</span>
+    </div>
+
+    <header class="intro">
+      <h1 class="intro__title">
+        <a class="intro__title-link" href="#about">Josh Elieson</a>
+      </h1>
+      <p class="intro__subtitle">Software Engineer</p>
+      <p class="intro__description">
+        I build polished, functional applications while pursuing my MSCS at Columbia University.
+      </p>
+    </header>
+
+    <nav class="section-nav" aria-label="Page sections">
+      <a class="section-nav__link" href="#about">About</a>
+      <a class="section-nav__link" href="#experience">Experience</a>
+      <a class="section-nav__link" href="#projects">Projects</a>
+      <a
+        class="section-nav__link"
+        href="/JoshElieson_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Resume
+      </a>
+    </nav>
+
+    <aside class="social-dock" aria-label="Contact and social links">
+      <div class="social-dock__panel">
+            <button
+              type="button"
+              class="social-dock__contact"
+              id="contact-open"
+              aria-haspopup="dialog"
+              aria-controls="contact-dialog"
+            >
+              Contact me
+            </button>
+            <ul class="social-dock__icons">
+              <li>
+                <a
+                  class="social-dock__icon-link"
+                  href="https://github.com/JoshElieson"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                >
+                  <svg class="social-dock__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <defs>
+                      <mask
+                        id="dock-gh-cutout"
+                        maskUnits="userSpaceOnUse"
+                        x="0"
+                        y="0"
+                        width="24"
+                        height="24"
+                      >
+                        <rect width="24" height="24" fill="black" />
+                        <circle cx="12" cy="12" r="10.5" fill="white" />
+                        <path
+                          fill="black"
+                          d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.272.098-2.65 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.398.1 2.651.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.481C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"
+                        />
+                      </mask>
+                    </defs>
+                    <rect width="24" height="24" fill="currentColor" mask="url(#dock-gh-cutout)" />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="social-dock__icon-link"
+                  href="https://www.linkedin.com/in/josh-elieson/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <svg class="social-dock__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a class="social-dock__icon-link" href="mailto:josh@elieson.com" aria-label="Email">
+                  <svg class="social-dock__icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="social-dock__icon-link"
+                  href="https://discord.com/users/josh7639"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Discord"
+                >
+                  <svg class="social-dock__icon social-dock__icon--discord" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="social-dock__icon-link"
+                  href="https://www.goodreads.com/user/show/177831115-josh-elieson"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Goodreads"
+                >
+                  <svg
+                    class="social-dock__icon social-dock__icon--goodreads"
+                    viewBox="0 0 1024 1024"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M663.8 382.4c10.2 74.6-9.4 158-71.8 201.4-44.6 31-105.6 28.2-141.6 11.4-74.2-34.6-99-117.2-93.6-194.4 8.6-121.8 81.8-175.8 150.6-175 93.8-0.4 143.6 63.6 156.4 156.6zM960 176v672c0 61.8-50.2 112-112 112H176c-61.8 0-112-50.2-112-112V176c0-61.8 50.2-112 112-112h672c61.8 0 112 50.2 112 112zM724 626.4s-0.2-68-0.2-434.6h-58v80.6c-1.6 0.6-2.4-1-3.2-2.4-19.2-41.4-71.8-92.6-152-92-103.8 0.8-174.4 62.4-201.2 155.6-8.6 29.8-11.6 60.2-11 91.2 3.4 155.8 90.2 235.6 224.8 230.4 57.8-2.2 109-34 138-90.4 1-2 2.2-3.8 3.4-5.8 0.4 0.2 0.8 0.2 1.2 0.4 0.6 7.6 0.4 61.4 0.2 69-0.4 29.6-4 59-14.4 87-15.6 42-44.6 69.4-89 79-35.6 7.8-71.2 7.6-106.4-2.4-43-12.2-73-38-82.2-83.6-0.6-3.2-2.6-2.6-4.6-2.6h-53.6c1.6 21.2 6.4 40.6 17 58.4 48.4 81 165.4 97 256.4 74.8 99.8-24.6 134.6-109.8 134.8-212.6z"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+      </div>
+    </aside>
+
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
+      <div class="contact-dialog__inner">
+        <h2 id="contact-dialog-title" class="contact-dialog__title">Contact</h2>
+        <dl class="contact-dialog__list">
+          <div class="contact-dialog__row">
+            <dt class="contact-dialog__label">
+              <span class="contact-dialog__label-inner">
+                <svg class="contact-dialog__glyph" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+                  />
+                </svg>
+                Email
+              </span>
+            </dt>
+            <dd class="contact-dialog__value">
+              <a class="contact-dialog__link" href="mailto:josh@elieson.com">josh@elieson.com</a>
+            </dd>
+          </div>
+          <div class="contact-dialog__row">
+            <dt class="contact-dialog__label">
+              <span class="contact-dialog__label-inner">
+                <svg class="contact-dialog__glyph" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                  />
+                </svg>
+                Phone
+              </span>
+            </dt>
+            <dd class="contact-dialog__value">
+              <a class="contact-dialog__link" href="tel:+18173009122">(+1) 817-300-9122</a>
+            </dd>
+          </div>
+        </dl>
+        <button type="button" class="contact-dialog__close" id="contact-close">Close</button>
+      </div>
+    </dialog>
+
+    <div id="app">
+      <section id="about" class="page-section">
+        <p class="page-section__body">
+          I’m a software engineer based in New York City currently pursuing my Masters in Computer Science at <a href="https://www.cs.columbia.edu/" target="_blank" rel="noopener noreferrer"><strong>Columbia University</strong></a>. I enjoy building polished, functional applications and exploring areas such as web development, algorithms, artificial intelligence, and interactive systems.
+        </p>
+
+        <p class="page-section__body">
+          I completed my undergraduate degree in Computer Engineering at the <a href="https://www.ece.utah.edu/" target="_blank" rel="noopener noreferrer"><strong>University of Utah</strong></a>, where I worked across software engineering, embedded systems, and research. During my studies, I served as a teaching assistant for university physics courses, contributed to magnetic sensing research focused on signal processing, and interned at <a href="https://www.northropgrumman.com/" target="_blank" rel="noopener noreferrer"><strong>Northrop Grumman</strong></a> developing LiDAR-based software systems and visualization tools.
+        </p>
+        <img
+          src="/about-photo.png"
+          alt="Josh presenting at a whiteboard"
+          class="about-photo-block"
+          loading="lazy"
+          decoding="async"
+        />
+
+        <p class="page-section__body">
+          I’m especially interested in building technology that combines strong engineering with thoughtful user experience and real-world impact. I hope to contribute to ambitious software projects that push both technical performance and user experience forward.
+        </p>
+      </section>
+      <section id="experience" class="page-section">
+        <ol class="experience-list" aria-label="Experience timeline">
+          <li class="experience-item">
+            <a
+              class="experience-item__link"
+              href="https://www.northropgrumman.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p class="experience-item__range">Aug 2024 - Aug 2025</p>
+              <div class="experience-item__content">
+                <h3 class="experience-item__title">Software Engineering Co-op - Northrop Grumman</h3>
+                <p class="experience-item__location">Cloud Services and Integration - Roy, UT</p>
+                <ul class="experience-item__bullets">
+                  <li>
+                    Developed 10+ automated validation scripts in Jython and Groovy to scan thousands of UML models for
+                    security and deployment errors, reducing manual review time by 60%.
+                  </li>
+                  <li>
+                    Refactored and optimized a complex CI/CD pipeline, reducing deployment time from 8+ hours to under 10
+                    minutes for 200+ internal projects.
+                  </li>
+                  <li>
+                    Authored onboarding documentation adopted across teams, lowering environment-related support requests
+                    and reducing ramp-up time by 20%.
+                  </li>
+                </ul>
+                <ul class="experience-item__tags" aria-label="Technologies used">
+                  <li>Jython</li>
+                  <li>Groovy</li>
+                  <li>C++</li>
+                  <li>Cameo</li>
+                  <li>Git</li>
+                  <li>Agile</li>
+                </ul>
+              </div>
+            </a>
+          </li>
+
+          <li class="experience-item">
+            <a
+              class="experience-item__link"
+              href="https://www.northropgrumman.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p class="experience-item__range">May 2024 - Aug 2024</p>
+              <div class="experience-item__content">
+                <h3 class="experience-item__title">Software Engineering Intern - Northrop Grumman</h3>
+                <p class="experience-item__location">Physical Security - Roy, UT</p>
+                <ul class="experience-item__bullets">
+                  <li>
+                    Implemented backend linear algebra algorithms in C to convert live LIDAR packets into structured point
+                    cloud files, improving processing speed by 3x.
+                  </li>
+                  <li>
+                    Built React features for interactive 3D point cloud rendering, enabling five-plus internal teams to
+                    analyze sensor data in a web app.
+                  </li>
+                </ul>
+                <ul class="experience-item__tags" aria-label="Technologies used">
+                  <li>TypeScript</li>
+                  <li>React</li>
+                  <li>JavaScript</li>
+                  <li>C</li>
+                  <li>Node.js</li>
+                  <li>REST APIs</li>
+                </ul>
+              </div>
+            </a>
+          </li>
+
+          <li class="experience-item">
+            <a class="experience-item__link" href="https://www.utah.edu/" target="_blank" rel="noopener noreferrer">
+              <p class="experience-item__range">Aug 2023 - May 2024</p>
+              <div class="experience-item__content">
+                <h3 class="experience-item__title">Teaching Assistant - University of Utah</h3>
+                <p class="experience-item__location">Physics for Scientists and Engineers - Salt Lake City, UT</p>
+                <ul class="experience-item__bullets">
+                  <li>
+                    Led bi-weekly lab sessions and office hours for 100+ students, providing individualized support and
+                    improving engagement with core physics concepts.
+                  </li>
+                  <li>
+                    Designed and delivered 20+ interactive workshops on mechanics and electromagnetism, contributing to a
+                    10% increase in final course grades.
+                  </li>
+                </ul>
+                <ul class="experience-item__tags" aria-label="Focus areas">
+                  <li>Teaching</li>
+                  <li>Physics</li>
+                  <li>Mentorship</li>
+                  <li>Workshops</li>
+                </ul>
+              </div>
+            </a>
+          </li>
+        </ol>
+      </section>
+      <section id="projects" class="page-section">
+        <p class="page-section__body">
+          Shipped work and experiments—replace with links or cards when you’re ready.
+        </p>
+      </section>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
