@@ -2,7 +2,7 @@
 
 A modern personal portfolio website built to showcase my background, projects, and experience in software engineering, computer engineering, and interactive web development.
 
-[Joshelieson.com](www.joshelieson.com)
+[Joshelieson.com](https://www.joshelieson.com)
 
 ## About
 
