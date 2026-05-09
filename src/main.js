@@ -145,8 +145,8 @@ if (sections.length) {
 const canvas = document.querySelector('#tech-bg')
 const ctx = canvas.getContext('2d')
 
-const CELL = 52
-const GLOW_RADIUS_CELLS = 6.5
+const CELL = 26
+const GLOW_RADIUS_CELLS = 13
 const DRIFT_X_PX = 14
 const DRIFT_Y_PX = 9
 
@@ -222,7 +222,7 @@ function drawGrid(nowMs) {
       if (distCells > GLOW_RADIUS_CELLS) continue
 
       const falloff = 1 - distCells / GLOW_RADIUS_CELLS
-      const a = falloff * falloff * 0.092
+      const a = falloff * falloff * 0.118
       ctx.fillStyle = `rgba(235, 98, 62, ${a})`
       ctx.fillRect(px, py, CELL + 1, CELL + 1)
     }
