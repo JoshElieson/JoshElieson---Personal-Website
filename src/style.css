@@ -628,8 +628,9 @@ body::-webkit-scrollbar {
 .site-note {
   position: relative;
   z-index: 1;
-  width: min(var(--intro-copy-width), 100%);
-  max-width: 30rem;
+  display: block;
+  width: min(36rem, 100%);
+  max-width: min(36rem, 100%);
   margin: 20rem auto 0;
   padding: 0;
   text-align: center;
@@ -637,6 +638,10 @@ body::-webkit-scrollbar {
   line-height: 1.45;
   letter-spacing: 0.01em;
   color: rgba(195, 189, 178, 0.64);
+}
+
+.site-note__text {
+  margin: 0;
 }
 
 .site-note a,
@@ -1291,7 +1296,7 @@ body::-webkit-scrollbar {
   }
 
   .site-note {
-    width: 100%;
+    width: min(100%, 32rem);
     max-width: none;
     margin: 1.8rem 0 0;
     padding: 0;
