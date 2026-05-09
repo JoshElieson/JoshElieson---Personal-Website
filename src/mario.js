@@ -16,8 +16,10 @@ const GRAVITY = 3200
 const JUMP_VELOCITY = 1050
 const MOVE_SPEED = 280
 const FLOOR_OFFSET = 10
+const SPAWN_OFFSET_X = 52
 const WALK_ANIM_MS = 220
 const IDLE_ALT_MS = 1000
+const MOVE_HINT_DELAY_MS = 7000
 /** Max |footBottom| change per vertical substep so thin text lines aren’t tunnelled through */
 const VERT_SUBSTEP_PX = 12
 const MUSHROOM_GRAVITY = 3000
@@ -229,6 +231,34 @@ export function initMario() {
   const sprite = document.createElement('div')
   sprite.className = 'mario__sprite'
   root.appendChild(sprite)
+
+  const hint = document.createElement('div')
+  hint.className = 'mario__hint'
+  hint.innerHTML = `
+    <span class="mario__hint-line">
+      <span class="mario__keypad-row" aria-hidden="true">
+        <span class="mario__keypad">
+          <span class="mario__key mario__key--ghost"></span>
+          <span class="mario__key">W</span>
+          <span class="mario__key mario__key--ghost"></span>
+          <span class="mario__key">A</span>
+          <span class="mario__key">S</span>
+          <span class="mario__key">D</span>
+        </span>
+        <span class="mario__hint-sep">or</span>
+        <span class="mario__keypad">
+          <span class="mario__key mario__key--ghost"></span>
+          <span class="mario__key">↑</span>
+          <span class="mario__key mario__key--ghost"></span>
+          <span class="mario__key">←</span>
+          <span class="mario__key">↓</span>
+          <span class="mario__key">→</span>
+        </span>
+      </span>
+    </span>
+  `
+  root.appendChild(hint)
+
   document.body.appendChild(root)
 
   function destroy() {
@@ -300,7 +330,7 @@ export function initMario() {
     syncMetrics()
 
     const keys = new Set()
-    let x = FLOOR_OFFSET
+    let x = FLOOR_OFFSET + SPAWN_OFFSET_X
     let footBottom = FLOOR_OFFSET
     let vy = 0
     let facing = 1
@@ -308,6 +338,9 @@ export function initMario() {
     let walkPhase = 0
     let walkTimer = 0
     let lastActivityAt = performance.now()
+    const spawnAt = performance.now()
+    let movedAtLeastOnce = false
+    let moveHintVisible = false
     /** After IDLE_ALT_MS still, show thinking pose until moving again */
     let idleThink = false
     let wasGrounded = true
@@ -442,6 +475,13 @@ export function initMario() {
       const prevX = x
       x += vx * dt
       x = resolveHorizontal(x, prevX, footBottom, hitboxW, hitboxH, H, solids)
+      const movedHorizontally = Math.abs(x - prevX) > 0.15
+      if (movedHorizontally) {
+        movedAtLeastOnce = true
+        moveHintVisible = false
+      } else if (!movedAtLeastOnce && !moveHintVisible && now - spawnAt >= MOVE_HINT_DELAY_MS) {
+        moveHintVisible = true
+      }
 
       const minX = FLOOR_OFFSET
       const maxX = Math.max(minX, window.innerWidth - hitboxW - FLOOR_OFFSET)
@@ -533,6 +573,7 @@ export function initMario() {
       root.style.bottom = `${footBottom}px`
       root.style.width = `${fw}px`
       root.style.height = `${hitboxH}px`
+      hint.classList.toggle('mario__hint--visible', moveHintVisible)
 
       rafId = requestAnimationFrame(loop)
     }

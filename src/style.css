@@ -106,6 +106,109 @@ body::-webkit-scrollbar {
   transform: translateX(-50%) scaleX(-1);
 }
 
+.mario__hint {
+  position: absolute;
+  left: 72%;
+  bottom: calc(100% + 2.55rem);
+  transform: translateX(-35%) translateY(4px);
+  max-width: min(18rem, 72vw);
+  padding: 0.32rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(230, 225, 215, 0.35);
+  background: rgba(12, 9, 6, 0.88);
+  color: rgba(242, 236, 226, 0.95);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.mario__hint-line {
+  display: block;
+}
+
+.mario__hint-line + .mario__hint-line {
+  margin-top: 0.22rem;
+}
+
+.mario__hint::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  top: 100%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid rgba(12, 9, 6, 0.88);
+}
+
+.mario__hint::before {
+  content: "";
+  position: absolute;
+  left: 18%;
+  top: 100%;
+  width: 0;
+  height: 0;
+  transform: translateY(1px);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid rgba(230, 225, 215, 0.35);
+}
+
+.mario__keypad-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mario__keypad {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(1.05rem, auto));
+  grid-template-rows: repeat(2, 1.05rem);
+  gap: 0.12rem;
+  align-items: center;
+  justify-items: center;
+  vertical-align: middle;
+}
+
+.mario__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.05rem;
+  height: 1.05rem;
+  padding: 0 0.18rem;
+  border-radius: 4px;
+  border: 1px solid rgba(230, 225, 215, 0.45);
+  background: rgba(42, 34, 28, 0.9);
+  color: rgba(248, 241, 230, 0.98);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mario__key--ghost {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mario__hint-sep {
+  margin: 0 0.1rem;
+  color: rgba(232, 220, 200, 0.85);
+}
+
+.mario__hint--visible {
+  opacity: 1;
+  transform: translateX(-35%) translateY(0);
+}
+
 .mario-mushroom {
   position: fixed;
   z-index: 5;
@@ -121,13 +224,13 @@ body::-webkit-scrollbar {
     transform: translateY(0);
   }
   28% {
-    transform: translateY(-14px);
+    transform: translateY(-18px);
   }
   52% {
-    transform: translateY(5px);
+    transform: translateY(7px);
   }
   76% {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
   }
   100% {
     transform: translateY(0);
@@ -135,7 +238,7 @@ body::-webkit-scrollbar {
 }
 
 .experience-item__range--bonk {
-  animation: experience-range-bonk 0.62s cubic-bezier(0.33, 1.15, 0.55, 1) both;
+  animation: experience-range-bonk 0.68s cubic-bezier(0.33, 1.15, 0.55, 1) both;
   will-change: transform;
 }
 
@@ -785,6 +888,7 @@ body::-webkit-scrollbar {
 
 /* Mario head art as mask — fills with currentColor like the SVG icons */
 .social-dock__icon--mario-face {
+  position: relative;
   -webkit-mask-image: url('/mario-dock-icon.png');
   mask-image: url('/mario-dock-icon.png');
   -webkit-mask-size: contain;
@@ -795,6 +899,26 @@ body::-webkit-scrollbar {
   mask-position: center;
   mask-type: alpha;
   background-color: currentColor;
+}
+
+.social-dock__icon--mario-face::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 21%;
+  width: 0.62rem;
+  height: 0.46rem;
+  transform: translateX(-50%);
+  background-color: rgba(30, 26, 22, 0.72);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 22'%3E%3Cpath fill='black' d='M2.2 20.4 7.7 1.6l6.2 6 6.3-6 5.6 18.8h-5.1l-2.7-9.2-4.1 4-4.1-4-2.6 9.2z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 22'%3E%3Cpath fill='black' d='M2.2 20.4 7.7 1.6l6.2 6 6.3-6 5.6 18.8h-5.1l-2.7-9.2-4.1 4-4.1-4-2.6 9.2z'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  pointer-events: none;
 }
 
 @media (max-width: 1280px), (max-aspect-ratio: 3 / 4) {
@@ -848,4 +972,5 @@ body::-webkit-scrollbar {
     max-width: calc(50vw - var(--shell-inline) - 0.9rem);
   }
 }
+
 
