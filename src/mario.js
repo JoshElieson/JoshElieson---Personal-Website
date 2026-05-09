@@ -77,11 +77,11 @@ function gatherSolids(marioRoot) {
   }
 
   document.querySelectorAll('.intro, .section-nav').forEach((el) => {
-    add(el.getBoundingClientRect())
+    add(el.getBoundingClientRect(), el)
   })
   document.querySelectorAll('#app .page-section:not(#experience)').forEach((el) => {
     if (el === marioRoot || el.contains?.(marioRoot)) return
-    add(el.getBoundingClientRect())
+    add(el.getBoundingClientRect(), el)
   })
   document.querySelectorAll('#app .experience-item__range').forEach((el) => {
     if (el === marioRoot || el.contains?.(marioRoot)) return
@@ -93,14 +93,14 @@ function gatherSolids(marioRoot) {
     )
     .forEach((el) => {
       if (el === marioRoot || el.contains?.(marioRoot)) return
-      add(el.getBoundingClientRect())
+      add(el.getBoundingClientRect(), el)
     })
 
   const icons = document.querySelector('.social-dock__icons')
-  if (icons) add(icons.getBoundingClientRect())
+  if (icons) add(icons.getBoundingClientRect(), icons)
 
   const contact = document.querySelector('#contact-open')
-  if (contact) add(contact.getBoundingClientRect())
+  if (contact) add(contact.getBoundingClientRect(), contact)
 
   return solids
 }
@@ -199,6 +199,23 @@ function feetOnPlatformTop(x, hitboxW, footBottom, viewH, solids) {
     if (cx >= s.left && cx <= s.right && Math.abs(feetY - s.top) < 4) return true
   }
   return false
+}
+
+function getSupportSolid(x, hitboxW, footBottom, viewH, solids) {
+  const feetY = viewH - footBottom
+  const mLeft = x
+  const mRight = x + hitboxW
+  let best = null
+  let bestDist = Infinity
+  for (const s of solids) {
+    if (!overlap1d(mLeft, mRight, s.left, s.right)) continue
+    const d = Math.abs(feetY - s.top)
+    if (d < 5 && d < bestDist) {
+      best = s
+      bestDist = d
+    }
+  }
+  return best
 }
 
 /** Mushroom uses fixed left/bottom (same convention as Mario); returns viewport AABB (y down). */
@@ -344,6 +361,7 @@ export function initMario() {
     /** After IDLE_ALT_MS still, show thinking pose until moving again */
     let idleThink = false
     let wasGrounded = true
+    let supportSolid = null
 
     const applyCell = ({ col, row }) => {
       const posX = (row === 1 ? bottomInsetDisp : 0) + col * fw
@@ -452,6 +470,14 @@ export function initMario() {
       const hitboxH = hitboxHStand
       const solids = gatherSolids(root)
 
+      // If Mario is standing on a DOM platform, carry him as that element moves during scroll.
+      if (wasGrounded && Math.abs(vy) < 2 && supportSolid?.el) {
+        const currentSupport = solids.find((s) => s.el === supportSolid.el)
+        if (currentSupport) {
+          footBottom += supportSolid.top - currentSupport.top
+        }
+      }
+
       let vx = 0
       if (keys.has('ArrowLeft') || keys.has('KeyA')) vx -= MOVE_SPEED
       if (keys.has('ArrowRight') || keys.has('KeyD')) vx += MOVE_SPEED
@@ -551,6 +577,10 @@ export function initMario() {
         Math.abs(vy) < 2 &&
         (Math.abs(footBottom - FLOOR_OFFSET) < 2 || feetOnPlatformTop(x, hitboxW, footBottom, H, solids))
       wasGrounded = grounded
+      supportSolid =
+        grounded && Math.abs(footBottom - FLOOR_OFFSET) >= 2
+          ? getSupportSolid(x, hitboxW, footBottom, H, solids)
+          : null
 
       let cell = SHEET.idle
       if (!grounded) {
