@@ -554,6 +554,38 @@ body::-webkit-scrollbar {
   color: rgba(228, 173, 106, 0.98);
 }
 
+.project-card__thumb {
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+  width: clamp(8.15rem, 22vw, 9.85rem);
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.18s ease;
+}
+
+/*
+ * Pipeline preview is ~16:9 but has black bars inside the file. A slightly wider
+ * aspect than 16/9 makes object-fit:cover trim top/bottom (no bitmap stretch).
+ */
+.project-card__thumb--bleed {
+  aspect-ratio: 2.15 / 1;
+}
+
+.project-card__thumb--bleed .project-card__image {
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  aspect-ratio: unset;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .project-card__image {
   width: clamp(8.15rem, 22vw, 9.85rem);
   flex-shrink: 0;
@@ -568,6 +600,11 @@ body::-webkit-scrollbar {
     filter 0.18s ease,
     box-shadow 0.18s ease,
     border-color 0.18s ease;
+}
+
+/* Spotify preview: biased to top, nudged right of hard-left so a bit more right edge shows */
+.project-card__image--focus-left {
+  object-position: 22% top;
 }
 
 .project-card__image--slot {
@@ -659,6 +696,16 @@ body::-webkit-scrollbar {
 .project-card__link:hover .project-card__image:not(.project-card__image--slot),
 .project-card__link:focus-visible .project-card__image:not(.project-card__image--slot) {
   filter: brightness(1.02) saturate(0.96);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+.project-card__link:hover .project-card__thumb .project-card__image,
+.project-card__link:focus-visible .project-card__thumb .project-card__image {
+  box-shadow: none;
+}
+
+.project-card__link:hover .project-card__thumb,
+.project-card__link:focus-visible .project-card__thumb {
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
 }
 
@@ -1383,6 +1430,12 @@ body::-webkit-scrollbar {
   .project-card__link:focus-visible {
     background: rgba(170, 96, 58, 0.26);
     border-color: transparent;
+  }
+
+  .project-card__thumb {
+    width: 100%;
+    max-width: 15.5rem;
+    margin-top: 0;
   }
 
   .project-card__image {
