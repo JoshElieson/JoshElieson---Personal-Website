@@ -14,9 +14,10 @@
   /* Scroll layer: keep future page content clear of fixed blocks */
   --scroll-clear-top: clamp(11rem, 26vh, 18rem);
   --scroll-clear-bottom: clamp(9rem, 22vh, 15rem);
-  /* Same measure as `.intro__description` — mirrored in the right column */
+  /* Same measure as `.intro__description` — mirrored in the right column.
+   * Grows on wide viewports so text/images don’t sit in a tiny strip on 1440p+ (reads “zoomed out”). */
   --intro-copy-width: min(
-    36rem,
+    clamp(36rem, 22vw + 16rem, 52rem),
     calc(100vw - var(--shell-inline) * 2 - env(safe-area-inset-left) - env(safe-area-inset-right))
   );
 }
@@ -30,6 +31,8 @@
 html {
   background-color: var(--wood-deep);
   scroll-behavior: smooth;
+  /* Nudge rem-based sizing up on large monitors so the split layout matches smaller-desktop scale. */
+  font-size: clamp(15px, 0.22vw + 13.75px, 20px);
 }
 
 body {
@@ -336,7 +339,7 @@ body::-webkit-scrollbar {
 
 .page-section__body {
   margin: 0;
-  font-size: clamp(0.96rem, 2vw, 1.08rem);
+  font-size: clamp(0.96rem, 2vw, 1.14rem);
   line-height: 1.62;
   color: rgba(232, 220, 200, 0.82);
 }
@@ -557,7 +560,7 @@ body::-webkit-scrollbar {
 .project-card__thumb {
   flex-shrink: 0;
   margin-top: 0.5rem;
-  width: clamp(8.15rem, 22vw, 9.85rem);
+  width: clamp(8.15rem, 22vw, 12rem);
   aspect-ratio: 16 / 9;
   border-radius: 8px;
   overflow: hidden;
@@ -587,7 +590,7 @@ body::-webkit-scrollbar {
 }
 
 .project-card__image {
-  width: clamp(8.15rem, 22vw, 9.85rem);
+  width: clamp(8.15rem, 22vw, 12rem);
   flex-shrink: 0;
   height: auto;
   aspect-ratio: 16 / 9;
@@ -782,8 +785,8 @@ body::-webkit-scrollbar {
   position: relative;
   z-index: 1;
   display: block;
-  width: min(36rem, 100%);
-  max-width: min(36rem, 100%);
+  width: min(var(--intro-copy-width), 100%);
+  max-width: min(var(--intro-copy-width), 100%);
   margin: 20rem auto 0;
   padding: 0;
   text-align: center;
@@ -881,10 +884,11 @@ body::-webkit-scrollbar {
   left: max(var(--shell-inline-left), env(safe-area-inset-left));
   right: auto;
   width: min(
-    40rem,
-    calc(100vw - var(--shell-inline-left) * 2 - env(safe-area-inset-left) - env(safe-area-inset-right))
+    clamp(40rem, 18vw + 26rem, 48rem),
+    calc(100vw - var(--shell-inline-left) * 2 - env(safe-area-inset-left) - env(safe-area-inset-right)),
+    calc(50vw - max(var(--shell-inline-left), env(safe-area-inset-left)) - 0.75rem)
   );
-  max-width: 40rem;
+  max-width: 48rem;
   margin: 0;
   padding: 0;
   font-family:
@@ -902,7 +906,7 @@ body::-webkit-scrollbar {
 .intro__title {
   margin: 0;
   font-weight: 700;
-  font-size: clamp(2.35rem, 7vw, 3.75rem);
+  font-size: clamp(2.35rem, 7vw, 4.35rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: #f2e8dc;
@@ -932,7 +936,7 @@ body::-webkit-scrollbar {
 
 .intro__subtitle {
   margin: 0.85rem 0 0;
-  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-size: clamp(1.05rem, 2.4vw, 1.52rem);
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -941,7 +945,7 @@ body::-webkit-scrollbar {
 
 .intro__description {
   margin: 1.25rem 0 0;
-  font-size: clamp(0.98rem, 2vw, 1.125rem);
+  font-size: clamp(0.98rem, 2vw, 1.22rem);
   font-weight: 400;
   line-height: 1.65;
   color: rgba(232, 220, 200, 0.82);
