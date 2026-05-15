@@ -646,19 +646,21 @@ body::-webkit-scrollbar {
   gap: 0.35rem 0.45rem;
 }
 
+/* Long title: keep ↗ inline after the last word instead of flex-grow pushing it to the card edge */
 .project-list > .project-card:first-child .project-card__heading {
-  flex-wrap: nowrap;
-  align-items: flex-start;
+  display: block;
 }
 
 .project-list > .project-card:first-child .project-card__title {
-  flex: 1;
-  min-width: 0;
+  display: inline;
+  margin-right: 0.25em;
 }
 
 .project-list > .project-card:first-child .project-card__ext-arrow {
-  flex-shrink: 0;
-  margin-top: 0.12em;
+  display: inline-flex;
+  vertical-align: baseline;
+  margin-top: 0;
+  margin-left: 0.1em;
 }
 
 .project-card__title {
