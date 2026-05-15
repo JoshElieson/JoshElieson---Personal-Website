@@ -641,12 +641,14 @@ body::-webkit-scrollbar {
 
 .project-card__heading {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.35rem 0.45rem;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
 }
 
 .project-card__title {
+  flex: 1;
+  min-width: 0;
   margin: 0;
   font-size: clamp(1rem, 1.9vw, 1.12rem);
   font-weight: 700;
@@ -657,7 +659,9 @@ body::-webkit-scrollbar {
 
 .project-card__ext-arrow {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
+  margin-top: 0.12em;
   line-height: 1;
   font-size: 0.95em;
   color: rgba(200, 192, 178, 0.75);
